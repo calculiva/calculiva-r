@@ -1,0 +1,20 @@
+Package: calculiva
+Type: Package
+Title: Home Improvement Estimators for Mulch, Topsoil and Sod
+Version: 0.3.0
+Authors@R: person("Calculiva", role = c("aut", "cre", "cph"), email = "contact@calculiva.com")
+Description: Planning quantities for home improvement projects: mulch by bed,
+    tree ring, known area, play structure or swing; topsoil and fill dirt by
+    area with bags, bulk, weight and trips; sod by area with a staggered
+    piece layout, pallets, plugs and soil preparation. A port of the Go module
+    'calculiva-go' (same version and test vectors), itself a port of the
+    engine of the calculators on <https://calculiva.com/>. The method is
+    described at <https://calculiva.com/how-we-calculate/>.
+License: MIT + file LICENSE
+URL: https://calculiva.com/, https://calculiva.com/how-we-calculate/,
+    https://github.com/calculiva/calculiva-r
+BugReports: https://github.com/calculiva/calculiva-r/issues
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+Suggests: jsonlite, testthat (>= 3.0.0)
+Config/testthat/edition: 3
