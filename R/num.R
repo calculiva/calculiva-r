@@ -18,6 +18,18 @@ nz <- function(x, default) if (is.null(x)) default else x
 
 num <- function(x) as.numeric(unlist(x))
 
+# The Go module computes in float64: whole numbers given as R integers (1L, or
+# the whole numbers read by jsonlite) become doubles, so that a product such as
+# area x depth x count cannot overflow R's 32-bit integers.
+as_dbl <- function(x) {
+  if (is.list(x)) {
+    y <- lapply(x, as_dbl)
+    names(y) <- names(x)
+    return(y)
+  }
+  if (is.integer(x)) as.double(x) else x
+}
+
 # Fills the missing fields of a list with their defaults.
 with_defaults <- function(x, defaults) {
   x <- nz(x, list())

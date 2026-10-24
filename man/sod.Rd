@@ -47,7 +47,8 @@ placed pieces, rows and counts; \code{sod_format_table} one row per format.
 }
 \examples{
 ft <- calculiva_units()$foot
-input <- sod_new_input(list(list(id = "a1", shape = list(type = "rect", l = 10 * ft, w = 8 * ft, count = 1))))
+lawn <- list(id = "a1", shape = list(type = "rect", l = 10 * ft, w = 8 * ft, count = 1))
+input <- sod_new_input(list(lawn))
 input$palletPieces <- 150
 sod_new_plan(input)$totals$pieces
 }

@@ -105,6 +105,8 @@ mulch_new_ring_guidance <- function() {
 
 #' @export
 mulch_check_ring <- function(r, gap, guidance = mulch_new_ring_guidance()) {
+  r <- as_dbl(r)
+  gap <- as_dbl(gap)
   list(
     gaps = lapply(guidance$gaps, function(g) list(minimum = g, ok = gap >= g$minMM - EPS)),
     radii = lapply(guidance$radii, function(g) list(minimum = g, ok = r >= g$minMM - EPS))
@@ -120,6 +122,7 @@ mulch_warning <- function(kind, area = "", maxMM = 0.0, existing = 0.0, target =
 
 #' @export
 mulch_new_plan <- function(input, rules = mulch_new_rules()) {
+  input <- as_dbl(input)
   x <- with_defaults(input, MULCH_INPUT_DEFAULTS)
   if (length(x$areas) == 0 || length(x$areas) > 8) input_error("Tick one to eight areas.", "areas")
   if (x$bagUnit == "cuFt") {

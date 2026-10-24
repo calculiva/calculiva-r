@@ -34,6 +34,7 @@ soil_constants <- function() {
 
 #' @export
 soil_new_rules <- function(weights = list()) {
+  weights <- as_dbl(weights)
   list(poundsPerTon = POUNDS_PER_SHORT_TON, cuFtPerCuYd = CUBIC_FEET_PER_CUBIC_YARD,
        dryQuartIn3 = DRY_QUART_IN3, weights = weights)
 }
@@ -45,6 +46,7 @@ soil_weight <- function(rules, id) {
 
 #' @export
 soil_area_of <- function(id, shape) {
+  shape <- as_dbl(shape)
   f <- function(k) paste0(id, "-", k)
   len <- function(v, k, label) check_range(v, LEN_MIN, LEN_MAX, paste0("Enter ", label, LEN_MSG), f(k))
   type <- nz(shape$type, "")
@@ -78,6 +80,8 @@ bag_bounds <- function(unit) {
 
 #' @export
 soil_bag_cu_ft <- function(size, unit, dry_quart_in3) {
+  size <- as_dbl(size)
+  dry_quart_in3 <- as_dbl(dry_quart_in3)
   if (unit == "dryQuarts") return(size * dry_quart_in3 * CU_IN / SOIL_CUFT)
   if (unit == "liters") return(size * LITRE / SOIL_CUFT)
   size
@@ -89,6 +93,8 @@ MATERIAL_DEFAULTS <- list(bagSize = 0, bagUnit = "cuFt", bagPrice = 0, bulkPrice
 
 #' @export
 soil_new_plan <- function(input, rules) {
+  input <- as_dbl(input)
+  rules <- as_dbl(rules)
   x <- with_defaults(input, SOIL_INPUT_DEFAULTS)
   if (length(x$areas) == 0 || length(x$areas) > 8) input_error("Enter one to eight areas.", "areas")
   check_range(x$delivery, 0.0, 10000.0, "Enter a delivery charge from 0 to 10,000 USD.", "delivery")
@@ -227,6 +233,7 @@ soil_new_plan <- function(input, rules) {
 
 #' @export
 soil_coverage <- function(depths_in, rules, weight_id) {
+  rules <- as_dbl(rules)
   w <- soil_weight(rules, weight_id)
   if (is.null(w)) input_error("Choose a material weight.", "weight")
   in_per_ft <- FOOT / INCH

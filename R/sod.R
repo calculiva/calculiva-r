@@ -137,6 +137,10 @@ sod_new_rules <- function() {
 
 #' @export
 sod_lay_rect <- function(l, w, piece_w, piece_l) {
+  l <- as_dbl(l)
+  w <- as_dbl(w)
+  piece_w <- as_dbl(piece_w)
+  piece_l <- as_dbl(piece_l)
   fp <- staggered(l, w, piece_w, piece_l, 0.5, SOD_RECT_MAX, SOD_PIECE_W_MAX)
   ids <- vapply(fp$pieces, function(p) p$id, character(1))
   index <- function(id) match(id, ids)
@@ -201,6 +205,8 @@ SOD_INPUT_ZERO <- list(format = "", pieceW = 0, pieceL = 0, palletMode = "pieces
 
 #' @export
 sod_new_input <- function(areas = list(), rules = sod_new_rules()) {
+  areas <- as_dbl(areas)
+  rules <- as_dbl(rules)
   sp <- rules$species[[1]]
   x <- SOD_INPUT_ZERO
   x$format <- rules$formats[[1]]$id
@@ -224,6 +230,8 @@ tidy <- function(x) if (abs(x) < 1e-9) 0.0 else x
 
 #' @export
 sod_new_plan <- function(input, rules = sod_new_rules()) {
+  input <- as_dbl(input)
+  rules <- as_dbl(rules)
   x <- with_defaults(input, SOD_INPUT_ZERO)
   if (length(x$areas) == 0 || length(x$areas) > 8) input_error("Tick one to eight areas.", "areas")
   # Format: one of the surveyed formats, or a piece entered by hand.
@@ -428,6 +436,7 @@ sod_new_plan <- function(input, rules = sod_new_rules()) {
 #' @export
 sod_format_table <- function(sold_as, sqft, rules = sod_new_rules()) {
   sold <- num(sold_as)
+  sqft <- as_dbl(sqft)
   lapply(rules$formats, function(f) {
     s <- f$widthMM * f$lengthMM / SOIL_SQFT
     list(format = f, sqFt = s, perPallet = vapply(sold, function(v) ceil_rel(v / s), numeric(1)), forLawn = ceil_rel(sqft / s))

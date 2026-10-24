@@ -52,6 +52,7 @@ rules <- soil_new_rules(list(list(id = "mine", label = "my supplier's ticket",
                                   loose = 2000, bank = 2500, loadFactor = 0.75)))
 area <- list(id = "a1", shape = list(type = "rect", l = 10 * ft, w = 12 * ft),
              depth = 101.6, count = 1, material = "topsoil")
-plan <- soil_new_plan(list(areas = list(area), topsoil = list(bagSize = 0.75, weight = "mine")), rules)
+topsoil <- list(bagSize = 0.75, weight = "mine")
+plan <- soil_new_plan(list(areas = list(area), topsoil = topsoil), rules)
 plan$materials[[1]]$bags
 }
